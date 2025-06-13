@@ -1,0 +1,28 @@
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-error.log
+package-lock.json
+
+# Archivos de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Datos sensibles de la aplicación
+data/
+
+# Archivos de log
+*.log
+
+# Directorio de despliegue de Vercel
+.vercel/
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+certs/ 
+debug/

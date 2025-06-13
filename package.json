@@ -1,0 +1,33 @@
+{
+  "name": "webauthn-spc-demo",
+  "version": "1.0.0",
+  "description": "Demo de Secure Payment Confirmation (SPC) con WebAuthn",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "generate-certs": "mkdir -p certs && openssl req -x509 -newkey rsa:2048 -keyout certs/key.pem -out certs/cert.pem -days 365 -nodes -subj '/C=ES/ST=Madrid/L=Madrid/O=SPC Demo/CN=demo.savagesoftware.dev'",
+    "clean-data": "rm -rf data/* && echo '{}' > data/users.json && echo '{}' > data/challenges.json",
+    "setup": "npm run generate-certs && npm run clean-data"
+  },
+  "keywords": [
+    "webauthn",
+    "spc",
+    "secure-payment-confirmation",
+    "passkeys"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "mkcert": "^3.2.0",
+    "nodemon": "^3.1.0"
+  }
+}

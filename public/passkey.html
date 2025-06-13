@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passkeys - SPC Demo</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="/" class="nav-brand">
+                    <svg class="passkey-icon" viewBox="0 0 24 24">
+                        <path d="M12.65 10A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                    SPC Demo
+                </a>
+                <div class="nav-links">
+                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/register.html" class="nav-link">Registro</a>
+                    <a href="/login.html" class="nav-link">Login</a>
+                    <a href="/passkey.html" class="nav-link">Passkeys</a>
+                    <a href="/payment.html" class="nav-link">Pagos</a>
+                    <button onclick="logout()" class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">
+                        Cerrar sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="payment-form" style="margin-top: 40px;">
+        <div class="card">
+            <div class="card-header">
+                <h1>Gestionar Passkeys</h1>
+                <p>Crea y gestiona tus passkeys para un acceso seguro y sin contraseñas.</p>
+            </div>
+            <div id="passkey-status"></div>
+            <button id="register-passkey" class="btn btn-primary btn-block">
+                Registrar nueva passkey
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="card-header" style="margin-bottom: 0;">
+                <h2>Passkeys Registradas</h2>
+            </div>
+            <div id="passkey-list">
+                <!-- La lista de passkeys se cargará aquí dinámicamente -->
+                <p class="text-muted">Cargando tus passkeys...</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>¿Cómo funciona con SPC?</h2>
+            </div>
+            <div class="feature-card-content">
+                <p class="text-muted" style="text-align: left; margin-bottom: 20px;">
+                    Al registrar una passkey en esta página, se activa automáticamente la extensión <code>payment</code>. Esto vincula la passkey a la capacidad de realizar pagos seguros con <strong>Secure Payment Confirmation (SPC)</strong>.
+                </p>
+                <p class="text-muted" style="text-align: left; margin-bottom: 20px;">
+                    Cuando vayas a la página de pago y elijas pagar con SPC, el navegador utilizará esta misma passkey para autenticar la transacción, pidiéndote tu huella o reconocimiento facial. Esto elimina la necesidad de contraseñas o códigos de un solo uso, haciendo el proceso más rápido y seguro.
+                </p>
+                <a href="/payment.html" class="btn btn-secondary btn-block">
+                    Probar pago con SPC
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

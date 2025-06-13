@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago con SPC - SPC Demo</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="/" class="nav-brand">
+                    <svg class="passkey-icon" viewBox="0 0 24 24">
+                        <path d="M12.65 10A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                    SPC Demo
+                </a>
+                <div class="nav-links">
+                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/register.html" class="nav-link">Registro</a>
+                    <a href="/login.html" class="nav-link">Login</a>
+                    <a href="/passkey.html" class="nav-link">Passkeys</a>
+                    <a href="/payment.html" class="nav-link">Pagos</a>
+                    <button onclick="logout()" class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">
+                        Cerrar sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Simulación de Pago</h1>
+            <p>Prueba Secure Payment Confirmation en acción</p>
+        </div>
+
+        <div id="spc-status">
+            <!-- Estado de SPC se mostrará aquí -->
+        </div>
+
+        <div class="payment-form">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Resumen del pedido</h2>
+                </div>
+                
+                <div class="payment-details">
+                    <div class="payment-item">
+                        <span class="payment-label">Producto Demo</span>
+                        <span class="payment-value">€89.99</span>
+                    </div>
+                    <div class="payment-item">
+                        <span class="payment-label">Subtotal</span>
+                        <span class="payment-value" id="cart-subtotal">89.99</span>
+                    </div>
+                    <div class="payment-item">
+                        <span class="payment-label">Envío</span>
+                        <span class="payment-value" id="cart-shipping">5.00</span>
+                    </div>
+                    <div class="payment-item">
+                        <span class="payment-label">Impuestos (21%)</span>
+                        <span class="payment-value" id="cart-tax">18.90</span>
+                    </div>
+                    <div class="payment-item payment-total">
+                        <span class="payment-label">Total</span>
+                        <span class="payment-value">€<span id="cart-total">113.89</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="payment-form">
+                <div class="card-header">
+                    <h2>Información del comercio</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="payee-name">Nombre del comercio</label>
+                    <input 
+                        type="text" 
+                        id="payee-name" 
+                        class="form-control" 
+                        value="Comercio Demo SPC"
+                        placeholder="Nombre del comercio"
+                    >
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="card-header">
+                    <h2>Método de pago</h2>
+                </div>
+
+                <div style="display: grid; gap: 16px;">
+                    <button id="pay-with-spc" class="btn btn-primary btn-block">
+                        <svg class="passkey-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                            <path fill="currentColor" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20.24 12,20.92C9.89,20.24 8.08,18.85 6.87,17C6.53,16.5 6.24,16 6,15.47C6,13.82 8.71,12.47 12,12.47C15.29,12.47 18,13.79 18,15.47C17.76,16 17.47,16.5 17.13,17Z"/>
+                        </svg>
+                        Pagar con Secure Payment Confirmation
+                    </button>
+
+                    <button id="pay-traditional" class="btn btn-secondary btn-block">
+                        <svg class="passkey-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                            <path fill="currentColor" d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                        </svg>
+                        Pago tradicional (simulado)
+                    </button>
+                </div>
+
+                <div class="alert alert-info mt-3">
+                    <svg viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                        <path fill="currentColor" d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </svg>
+                    <div>
+                        <strong>Nota:</strong> Esta es una simulación de pago. No se realizará ningún 
+                        cargo real. Al usar SPC, verás una ventana del navegador con los detalles 
+                        del pago antes de confirmar con tu biometría.
+                    </div>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                    <svg viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                        <path fill="currentColor" d="M12,2L1,21H23M12,6L19.53,19H4.47M11,10V14H13V10M11,16V18H13V16"/>
+                    </svg>
+                    <div>
+                        <strong>Estado experimental:</strong> SPC está en desarrollo activo. 
+                        Requiere Chrome 95+ o Edge 95+ con banderas experimentales habilitadas. 
+                        Si no funciona, será porque la implementación no está completa en tu navegador.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 40px;">
+            <div class="card-header">
+                <h2>¿Qué ocurre con SPC?</h2>
+            </div>
+            <p class="mb-3">
+                Cuando pagas con Secure Payment Confirmation:
+            </p>
+            <ol style="margin-left: 20px; color: var(--text-secondary); line-height: 2;">
+                <li><strong>Ventana de confirmación:</strong> El navegador muestra una ventana nativa con los detalles del pago</li>
+                <li><strong>Verificación biométrica:</strong> Confirmas tu identidad con huella, Face ID, etc.</li>
+                <li><strong>Firma criptográfica:</strong> Se genera una prueba criptográfica de tu consentimiento</li>
+                <li><strong>Procesamiento seguro:</strong> El comercio recibe la confirmación y procesa el pago</li>
+            </ol>
+            <div class="alert alert-success mt-3">
+                <svg viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                    <path fill="currentColor" d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
+                </svg>
+                <div>
+                    Los detalles del pago son verificados criptográficamente, 
+                    evitando modificaciones maliciosas durante la transacción.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/payment.js"></script>
+</body>
+</html>
