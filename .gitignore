@@ -33,4 +33,7 @@ debug/
 .cache/
 *workspace*
 
+# Archivos certificados
+*.pem
+
 
