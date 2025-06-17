@@ -26,3 +26,11 @@ Thumbs.db
 
 certs/ 
 debug/
+
+# Archivos VSC
+.vscode/
+# Archivos de caché
+.cache/
+*workspace*
+
+
