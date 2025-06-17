@@ -17,7 +17,7 @@ const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
 
 // Configuración del servidor
 const rpName = 'SPC Demo';
-const rpID = 'demo.savagesoftware.dev';
+const rpID = 'gt008990n64426p.sgt.sgtech.corp';
 const origin = `https://${rpID}`;
 
 // Rutas de archivos
